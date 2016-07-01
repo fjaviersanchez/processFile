@@ -51,7 +51,7 @@ from lsst.meas.base import SingleFrameMeasurementTask
 class MyIsrConfig(IsrTask.ConfigClass):
     """A version of IsrTask.ConfigClass that disables almost everything
     The interpolation code is still run"""
-    
+
     def __init__(self, *args, **kwargs):
         IsrTask.ConfigClass.__init__(self, *args, **kwargs)
         self.doBias = False
@@ -84,7 +84,7 @@ Using such a container allows us to use the standard -c/-C/--show config options
     if SourceDeblendTask:
         deblend = pexConfig.ConfigField(dtype=SourceDeblendTask.ConfigClass,
                                         doc=SourceDeblendTask.ConfigClass.__doc__)
-    
+
 def run(config, inputFiles, weightFiles=None, varianceFiles=None,
         returnCalibSources=False, displayResults=[], verbose=False):
     #
@@ -115,7 +115,7 @@ def run(config, inputFiles, weightFiles=None, varianceFiles=None,
         keysToCopy.append((schema.addField(calibrateTask.schema.find(key).field), key))
 
     exposureDict = {}; calibSourcesDict = {}; sourcesDict = {}
-    
+
     for inputFile, weightFile, varianceFile in zip(inputFiles, weightFiles, varianceFiles):
         #
         # Create the output table
@@ -126,7 +126,7 @@ def run(config, inputFiles, weightFiles=None, varianceFiles=None,
         #
         if verbose:
             print "Reading %s" % inputFile
-            
+
         exposure = makeExposure(inputFile, weightFile, varianceFile,
                                 config.badPixelValue, config.variance)
         #
@@ -163,7 +163,7 @@ def run(config, inputFiles, weightFiles=None, varianceFiles=None,
             print "Detected %d objects" % len(sources)
 
         propagateCalibFlags(keysToCopy, calibSources, sources)
-        
+
         if displayResults:              # display results of processing (see also --debug argparse option)
             showApertures = "showApertures".upper() in displayResults
             showShapes = "showShapes".upper() in displayResults
@@ -323,7 +323,7 @@ Also includes the PSF model and detection masks.
                         help="display the specified information to stdout and quit (unless run is specified).")
     parser.add_argument("-L", "--loglevel", help="logging level", default="WARN",
                         choices=CaseInsensitiveChoices('DEBUG', 'INFO', 'WARN', 'FATAL'))
-    parser.add_argument("-T", "--trace", nargs="*", action=pbArgparse.TraceLevelAction,
+    parser.add_argument("-T", "--trace", nargs="*", action=pbArgparse.LogLevelAction,
                         help="trace level for component", metavar="COMPONENT=LEVEL")
 
     parser.add_argument('--debug', '-d', action="store_true", help="Load debug.py?", default=False)
