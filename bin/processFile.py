@@ -340,7 +340,7 @@ Also includes the PSF model and detection masks.
 
     config.calibrate.doAstrometry = False
     config.calibrate.doPhotoCal = False
-    config.calibrate.detection.reEstimateBackground = False
+    config.detection.reEstimateBackground = False
     config.detection.returnOriginalFootprints=False
 
     #-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
